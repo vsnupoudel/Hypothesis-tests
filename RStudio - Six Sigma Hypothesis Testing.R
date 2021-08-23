@@ -307,7 +307,7 @@ y2 = subset(dt, Duration == "Freehold")$Price
 out = XMRChartX(y1, label = "Price")
 out = XMRChartX(y2, label = "Price")
 
-## OBSERVATION: y1 violates couple of instances of rule 2 and rule 3
+## OBSERVATION: y1 violates couple of instances of rule 2 and rule 4
 
 
 # 4-2 Analyse SHAPE - Histogram, Normality, 
@@ -379,7 +379,7 @@ wilcox.test(y1, mu = 380000, alternative = "two.sided")
    
 mean(y1); mean(y2)
 t.test(y1, y2, var.equal = TRUE) 
-t.test(dt$Price ~ dt$Age, var.equal = TRUE) 
+t.test(dt$Price ~ dt$Age, var.equal = FALSE) 
 
 # Check Normality
 ad.test(y1)                       # p > 0.05 for Normality
@@ -409,6 +409,7 @@ boxplot(Price ~ PropType, dt, col = "gold2")
 
 summary(aov(dt$Price ~ dt$PropType))
 
+# for non-normal
 kruskal.test(dt$Price, dt$PropType)
 
 # Exercise - Perform ANOVA and Kruskal Tests
@@ -416,6 +417,17 @@ kruskal.test(dt$Price, dt$PropType)
 #            There are only 2 groups, but ignore this
 
 dt = fread("DiscX vs ContY.csv")
+
+#++++++++++++++++Solution+++++++++++++++++++++++
+
+summary(aov(dt$Price ~ dt$Duration))
+
+# for non-normal
+kruskal.test(dt$Price, dt$Duration)
+
+boxplot(Price ~ Duration, dt, col = "red")
+
+
 
 # End of Guided Project
 
